@@ -2,14 +2,12 @@
   hosts: localhost
   gather_facts: no
   connection: local
-    vars:
-      namespace: -----
   
   module_defaults:
     group/k8s:
       namespace: {{ namespace }}
-      api_key: ""
-      host:
+      api_key: {{ api_key }}
+      host: {{ host }}
       
   tasks:
     - name: crear los objetos del manifiesto
