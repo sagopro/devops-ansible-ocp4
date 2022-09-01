@@ -1,0 +1,15 @@
+- name: Demostrar módulos k8s
+  hosts: localhost
+  gather_facts: no
+  connection: local
+    vars:
+      namespace: -----
+  
+  module_defaults:
+    group/k8s:
+      namespace: {{ namespace }}
+      api_key: ""
+      host:
+      
+  tasks:
+    - name: 
