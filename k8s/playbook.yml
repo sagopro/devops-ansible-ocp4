@@ -12,4 +12,29 @@
       host:
       
   tasks:
-    - name: 
+    - name: crear los objetos del manifiesto
+    k8s:
+      state: present
+      src: "{{ playbook_dir + '/hello.yml' }}"
+    - name: cambiar de clusterIP a nodeport
+      k8s_service:
+        state: present
+        name: nodejs-ex
+        type: NodePort
+        ports:
+          - port: 8080
+            protocol: tcp
+    - name: Obtener información de los pods
+      k8s_info:
+        kind: pod
+        label_sectors: 
+          - app = nodejs-ex
+    - name: Exponer https con ClusterIP
+      k8s_service:
+        state: present
+        name: nodejs-ex
+        ports:
+          - port: 443
+            protocol: TCP
+        selector:
+          app: nodejs-ex
